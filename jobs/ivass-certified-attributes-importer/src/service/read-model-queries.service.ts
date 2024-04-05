@@ -27,11 +27,11 @@ export class ReadModelQueries {
   /**
    * Retrieve tenants that match the given tax codes, with their unrevoked certified attribute
    */
-  async getIVASSTenants(taxCodes: string[]): Promise<PersistentTenant[]> {
+  async getIVASSTenants(externalId: string[]): Promise<PersistentTenant[]> {
     return await this.readModelClient.tenants
       .aggregate([
         {
-          $match: { 'data.externalId.value': { $in: taxCodes }, },
+          $match: { 'data.externalId.origin': { $in: 'IVASS' },  'data.externalId.value': { $in: externalId },},
         },
         {
           $project: projectUnrevokedCertifiedAttributes,
