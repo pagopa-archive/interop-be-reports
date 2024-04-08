@@ -1,3 +1,4 @@
+import { MACRO_CATEGORIES } from '../configs/macro-categories.js'
 import { OnboardedTenantsCountMetric } from '../models/metrics.model.js'
 import { GlobalStoreService } from '../services/global-store.service.js'
 import { MetricFactoryFn } from '../services/metrics-producer.service.js'
@@ -11,6 +12,8 @@ export const getOnboardedTenantsCountMetric: MetricFactoryFn<'totaleEnti'> = (_r
     getMetricData('Comuni', globalStore),
     getMetricData('Regioni e Province autonome', globalStore),
     getMetricData('Università e AFAM', globalStore),
+    getMetricData('Pubbliche Amministrazioni Centrali', globalStore),
+    getMetricData('Altri enti pubblici', globalStore),
   ])
 }
 
@@ -20,12 +23,28 @@ function getMetricData(
 ): OnboardedTenantsCountMetric[number] {
   let tenants: Array<{ onboardedAt: Date }>
 
+  const otherMacroCategories: (typeof MACRO_CATEGORIES)[number]['name'][] = [
+    'Altre Pubbliche Amministrazioni locali',
+    'Aziende Ospedaliere e ASL',
+    'Province e Città Metropolitane',
+    'Enti Nazionali di Previdenza ed Assistenza Sociale',
+    'Consorzi e associazioni regionali',
+    'Scuole',
+    'Istituti di Ricerca',
+    'Stazioni Appaltanti e Gestori di pubblici servizi',
+  ]
+
   switch (name) {
     case 'Totale enti':
       tenants = globalStore.tenants
       break
     case 'Pubblici':
       tenants = globalStore.tenants.filter((t) => t.externalId.origin === 'IPA')
+      break
+    case 'Altri enti pubblici':
+      tenants = otherMacroCategories.flatMap(
+        (macroCategoryName) => globalStore.getMacroCategoryByName(macroCategoryName).tenants
+      )
       break
     default:
       tenants = globalStore.getMacroCategoryByName(name).tenants
