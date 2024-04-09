@@ -195,7 +195,7 @@ function assignMacrocategoryId(
   const consorziEAssociazioniRegionaliId = MACRO_CATEGORIES.find(
     ({ name }) => name === 'Consorzi e associazioni regionali'
   )?.id
-  const privatiId = MACRO_CATEGORIES.find(({ name }) => name === 'Privati')?.id
+  const privatiId = MACRO_CATEGORIES.find(({ name }) => name === 'Enti privati')?.id
 
   if (!regioniEProvinceAutonomeId || !consorziEAssociazioniRegionaliId || !privatiId)
     throw new Error(

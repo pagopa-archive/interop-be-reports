@@ -7,8 +7,8 @@ import { getMonthsAgoDate, getVariationPercentage } from '../utils/helpers.utils
 export const getOnboardedTenantsCountMetric: MetricFactoryFn<'totaleEnti'> = (_readModel, globalStore) => {
   return OnboardedTenantsCountMetric.parse([
     getMetricData('Totale enti', globalStore),
-    getMetricData('Pubblici', globalStore),
-    getMetricData('Privati', globalStore),
+    getMetricData('Enti pubblici', globalStore),
+    getMetricData('Enti privati', globalStore),
     getMetricData('Comuni', globalStore),
     getMetricData('Regioni e Province autonome', globalStore),
     getMetricData('Università e AFAM', globalStore),
@@ -38,7 +38,7 @@ function getMetricData(
     case 'Totale enti':
       tenants = globalStore.tenants
       break
-    case 'Pubblici':
+    case 'Enti pubblici':
       tenants = globalStore.tenants.filter((t) => t.externalId.origin === 'IPA')
       break
     case 'Altri enti pubblici':

@@ -15,7 +15,7 @@ export const getMacroCategoriesOnboardingTrendMetric: MetricFactoryFn<'andamento
 
   // Remove the 'Privati' macro category, which is not relevant for this metric
   const macroCategories = globalStore.macroCategories.filter(
-    (macroCategory) => macroCategory.name !== ('Privati' satisfies (typeof MACRO_CATEGORIES)[number]['name'])
+    (macroCategory) => macroCategory.name !== ('Enti privati' satisfies (typeof MACRO_CATEGORIES)[number]['name'])
   )
 
   return MacroCategoriesOnboardingTrendMetric.parse({
