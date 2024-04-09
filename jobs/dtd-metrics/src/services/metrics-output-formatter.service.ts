@@ -38,15 +38,15 @@ export class MetricsOutputFormatterService {
   private getMetricJsonFiles(metric: Metric): Array<MetricFile> {
     switch (metric.name) {
       case 'eservicePubblicati':
-      case 'entiErogatoriDiEService':
+      case 'distribuzioneEServicePerEntiErogatori':
       case 'totaleEnti':
       case 'distribuzioneDegliEntiPerAttivita':
       case 'totaleRichiesteDiAccesso':
       case 'connessioniTotali':
       case 'andamentoDelleAdesioni':
         return [{ filename: this.getFilename(metric.name, 'json'), data: JSON.stringify(metric.data) }]
-      case 'eServicePiuRichiesti':
-      case 'connessioniFraEnti':
+      case 'eServiceConPiuEntiAbilitati':
+      case 'entiConPiuConnessioniAbilitate':
       case 'entiChePubblicanoPiuEService':
       case 'andamentoDelleAdesioniPerCategoria':
       case 'attivitaDellaPiattaforma':
@@ -82,11 +82,11 @@ export class MetricsOutputFormatterService {
         return [{ filename: this.getFilename(metric.name, 'csv'), data: json2csv([metric.data]) }]
       case 'totaleEnti':
       case 'distribuzioneDegliEntiPerAttivita':
-      case 'entiErogatoriDiEService':
+      case 'distribuzioneEServicePerEntiErogatori':
       case 'andamentoDelleAdesioni':
         return [{ filename: this.getFilename(metric.name, 'csv'), data: json2csv(metric.data) }]
-      case 'eServicePiuRichiesti':
-      case 'connessioniFraEnti':
+      case 'eServiceConPiuEntiAbilitati':
+      case 'entiConPiuConnessioniAbilitate':
       case 'entiChePubblicanoPiuEService':
       case 'andamentoDelleAdesioniPerCategoria':
       case 'attivitaDellaPiattaforma':

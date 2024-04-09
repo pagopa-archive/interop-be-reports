@@ -79,8 +79,8 @@ const getFilename = (fileKey: MetricFileKey): string => toSnakeCase(fileKey)
 
 const METRICS_FILES = [
   {
-    fileKey: 'entiErogatoriDiEService',
-    filename: getFilename('entiErogatoriDiEService'),
+    fileKey: 'distribuzioneEServicePerEntiErogatori',
+    filename: getFilename('distribuzioneEServicePerEntiErogatori'),
     title: 'PDND - Distribuzione degli e-service per enti erogatori',
     description: 'Numero di e-service pubblicati suddivisi per categorie di enti erogatori',
     rightsHolderName: 'PCM - Dipartimento per la trasformazione digitale',
@@ -92,8 +92,8 @@ const METRICS_FILES = [
     issued: TODAY_DATE,
   },
   {
-    fileKey: 'eServicePiuRichiestiLastSixMonths',
-    filename: getFilename('eServicePiuRichiestiLastSixMonths'),
+    fileKey: 'eServiceConPiuEntiAbilitatiLastSixMonths',
+    filename: getFilename('eServiceConPiuEntiAbilitatiLastSixMonths'),
     title: 'PDND - E-service con più enti abilitati - ultimi 6 mesi',
     description: 'Gli e-service più richiesti, filtrabili per categoria di ente erogatore e di ente fruitore',
     rightsHolderName: 'PCM - Dipartimento per la trasformazione digitale',
@@ -105,8 +105,8 @@ const METRICS_FILES = [
     issued: TODAY_DATE,
   },
   {
-    fileKey: 'eServicePiuRichiestiLastTwelveMonths',
-    filename: getFilename('eServicePiuRichiestiLastTwelveMonths'),
+    fileKey: 'eServiceConPiuEntiAbilitatiLastTwelveMonths',
+    filename: getFilename('eServiceConPiuEntiAbilitatiLastTwelveMonths'),
     title: 'PDND - E-service con più enti abilitati - ultimi 12 mesi',
     description: 'Gli e-service più richiesti, filtrabili per categoria di ente erogatore e di ente fruitore',
     rightsHolderName: 'PCM - Dipartimento per la trasformazione digitale',
@@ -118,8 +118,8 @@ const METRICS_FILES = [
     issued: TODAY_DATE,
   },
   {
-    fileKey: 'eServicePiuRichiestiFromTheBeginning',
-    filename: getFilename('eServicePiuRichiestiFromTheBeginning'),
+    fileKey: 'eServiceConPiuEntiAbilitatiFromTheBeginning',
+    filename: getFilename('eServiceConPiuEntiAbilitatiFromTheBeginning'),
     title: 'PDND - E-service con più enti abilitati - inizio del servizio',
     description: 'Gli e-service più richiesti, filtrabili per categoria di ente erogatore e di ente fruitore',
     rightsHolderName: 'PCM - Dipartimento per la trasformazione digitale',
@@ -224,8 +224,8 @@ const METRICS_FILES = [
     issued: TODAY_DATE,
   },
   {
-    fileKey: 'connessioniFraEntiLastSixMonths',
-    filename: getFilename('connessioniFraEntiLastSixMonths'),
+    fileKey: 'entiConPiuConnessioniAbilitateLastSixMonths',
+    filename: getFilename('entiConPiuConnessioniAbilitateLastSixMonths'),
     title: 'PDND - Enti con più connessioni abilitate - ultimi 6 mesi',
     description: 'Gli enti erogatori che hanno abilitato più enti fruitori',
     rightsHolderName: 'PCM - Dipartimento per la trasformazione digitale',
@@ -237,8 +237,8 @@ const METRICS_FILES = [
     issued: TODAY_DATE,
   },
   {
-    fileKey: 'connessioniFraEntiLastTwelveMonths',
-    filename: getFilename('connessioniFraEntiLastTwelveMonths'),
+    fileKey: 'entiConPiuConnessioniAbilitateLastTwelveMonths',
+    filename: getFilename('entiConPiuConnessioniAbilitateLastTwelveMonths'),
     title: 'PDND - Enti con più connessioni abilitate - ultimi 12 mesi',
     description: 'Gli enti erogatori che hanno abilitato più enti fruitori',
     rightsHolderName: 'PCM - Dipartimento per la trasformazione digitale',
@@ -250,8 +250,8 @@ const METRICS_FILES = [
     issued: TODAY_DATE,
   },
   {
-    fileKey: 'connessioniFraEntiFromTheBeginning',
-    filename: getFilename('connessioniFraEntiFromTheBeginning'),
+    fileKey: 'entiConPiuConnessioniAbilitateFromTheBeginning',
+    filename: getFilename('entiConPiuConnessioniAbilitateFromTheBeginning'),
     title: 'PDND - Enti con più connessioni abilitate - inizio del servizio',
     description: 'Gli enti erogatori che hanno abilitato più enti fruitori',
     rightsHolderName: 'PCM - Dipartimento per la trasformazione digitale',

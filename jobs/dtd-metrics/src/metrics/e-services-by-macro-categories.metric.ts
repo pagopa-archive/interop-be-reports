@@ -7,7 +7,7 @@ import { MetricFactoryFn } from '../services/metrics-producer.service.js'
 /**
  * @see https://pagopa.atlassian.net/browse/PIN-3745
  */
-export const getEServicesByMacroCategoriesMetric: MetricFactoryFn<'entiErogatoriDiEService'> = async (
+export const getEServicesByMacroCategoriesMetric: MetricFactoryFn<'distribuzioneEServicePerEntiErogatori'> = async (
   readModel,
   globalStore
 ) => {
