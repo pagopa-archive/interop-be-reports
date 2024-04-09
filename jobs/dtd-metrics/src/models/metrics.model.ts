@@ -136,6 +136,18 @@ export const OnboardedTenantsCountMetric = z.tuple([
     lastMonthCount: z.number(),
     variation: z.number(),
   }),
+  z.object({
+    name: z.literal(MACRO_CATEGORIES[4].name),
+    totalCount: z.number(),
+    lastMonthCount: z.number(),
+    variation: z.number(),
+  }),
+  z.object({
+    name: z.literal('Altri enti pubblici'),
+    totalCount: z.number(),
+    lastMonthCount: z.number(),
+    variation: z.number(),
+  }),
 ])
 export type OnboardedTenantsCountMetric = z.infer<typeof OnboardedTenantsCountMetric>
 
