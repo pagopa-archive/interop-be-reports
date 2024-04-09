@@ -102,7 +102,7 @@ export const MACRO_CATEGORIES = [
   },
   {
     id: '13',
-    name: 'Privati',
+    name: 'Enti privati',
     ipaCodes: [], // Privates don't have an IPA code
     totalTenantsCount: 0, // Privates are potentially infinite
   },
