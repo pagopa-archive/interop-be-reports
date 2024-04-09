@@ -31,22 +31,22 @@ export const getTenantDistributionMetric: MetricFactoryFn<'distribuzioneDegliEnt
   type TenantDistributionItem = TenantDistributionMetric[number]
 
   const onlyConsumers: TenantDistributionItem = {
-    activity: 'Solo fruitori',
+    activity: 'Enti solo fruitori',
     count: 0,
   }
 
   const onlyProducers: TenantDistributionItem = {
-    activity: 'Solo erogatori',
+    activity: 'Enti solo erogatori',
     count: 0,
   }
 
   const bothConsumersAndProducers: TenantDistributionItem = {
-    activity: 'Sia fruitori che erogatori',
+    activity: 'Enti sia fruitori che erogatori',
     count: 0,
   }
 
   const onlyAccess: TenantDistributionItem = {
-    activity: 'Solo accesso',
+    activity: 'Enti con avviati gli sviluppi tecnici',
     count: 0,
   }
 

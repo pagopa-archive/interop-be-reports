@@ -76,7 +76,12 @@ export type TopProducersBySubscribersMetric = z.infer<typeof TopProducersBySubsc
 
 export const TenantDistributionMetric = z.array(
   z.object({
-    activity: z.enum(['Solo fruitori', 'Solo erogatori', 'Sia fruitori che erogatori', 'Solo accesso']),
+    activity: z.enum([
+      'Enti solo fruitori',
+      'Enti solo erogatori',
+      'Enti sia fruitori che erogatori',
+      'Enti con avviati gli sviluppi tecnici',
+    ]),
     count: z.number(),
   })
 )
