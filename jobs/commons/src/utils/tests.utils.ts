@@ -9,10 +9,8 @@ import { randomUUID } from 'crypto'
 type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>
 }
-function createMockFactory<TDefaultValue>(
-  defaultValue: TDefaultValue
-): <T>(overwrites?: RecursivePartial<TDefaultValue>) => T {
-  return <T>(overwrites: RecursivePartial<TDefaultValue> = {}) => {
+function createMockFactory<T>(defaultValue: T): (overwrites?: RecursivePartial<T>) => T {
+  return (overwrites: RecursivePartial<T> = {}): T => {
     return merge(cloneDeep(defaultValue), overwrites) as T
   }
 }
@@ -103,7 +101,7 @@ export const getAttributeMock = createMockFactory<Attribute>({
 })
 
 export const getTenantMock = createMockFactory<Tenant>({
-  id: '5ec5dd81-ff71-4af8-974b-4190eb8347bf',
+  id: randomUUID(),
   name: 'Nome produttore 1',
   selfcareId: randomUUID(),
   attributes: [],
@@ -118,7 +116,7 @@ export const getTenantMock = createMockFactory<Tenant>({
 })
 
 export const getAgreementMock = createMockFactory<Agreement>({
-  id: '5ec5dd81-ff71-4af8-974b-4190eb8347bf',
+  id: randomUUID(),
   eserviceId: '4747d063-0d9c-4a5d-b143-9f2fdc4d7f22',
   consumerId: '5ec5dd81-ff71-4af8-974b-4190eb8347bf',
   producerId: '5ec5dd81-ff71-4af8-974b-4190eb8347bf',
@@ -133,11 +131,11 @@ export const getAgreementMock = createMockFactory<Agreement>({
 })
 
 export const getPurposeMock = createMockFactory<Purpose>({
-  id: '5ec5dd81-ff71-4af8-974b-4190eb8347bf',
+  id: randomUUID(),
   eserviceId: '4747d063-0d9c-4a5d-b143-9f2fdc4d7f22',
   consumerId: '5ec5dd81-ff71-4af8-974b-4190eb8347bf',
   description: 'Descrizione',
-  versions: [{ id: '1', state: 'Active', dailyCalls: 1, createdAt: new Date() }],
+  versions: [{ id: randomUUID(), state: 'Active', dailyCalls: 1, createdAt: new Date() }],
   createdAt: new Date(),
   title: 'title',
   isFreeOfCharge: false,
