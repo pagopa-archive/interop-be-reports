@@ -14,14 +14,16 @@ export class ReadModelQueriesService {
   public async getEServices(): Promise<Array<ExportedEService>> {
     return this.readModel.eservices
       .find({
-        $nor: [
+        $or: [
           {
-            'data.descriptors': { $size: 0 },
+            'data.descriptors.1': { $exists: true },
           },
           {
             'data.descriptors': {
               $size: 1,
-              state: 'Draft' satisfies DescriptorState,
+              $elemMatch: {
+                state: { $in: ['Published', 'Archived', 'Suspended', 'Deprecated'] satisfies DescriptorState[] },
+              },
             },
           },
         ],
@@ -33,7 +35,7 @@ export class ReadModelQueriesService {
   public async getAgreements(): Promise<Array<ExportedAgreement>> {
     return this.readModel.agreements
       .find({
-        $not: [{ 'data.state': 'Draft' satisfies AgreementState }],
+        'data.state': { $ne: 'Draft' satisfies AgreementState },
       })
       .map(({ data }) => ExportedAgreement.parse(data))
       .toArray()
@@ -42,7 +44,19 @@ export class ReadModelQueriesService {
   public async getPurposes(): Promise<Array<ExportedPurpose>> {
     return this.readModel.purposes
       .find({
-        $not: [{ 'data.state': 'Draft' satisfies PurposeState }],
+        $or: [
+          {
+            'data.versions.1': { $exists: true },
+          },
+          {
+            'data.versions': {
+              $size: 1,
+              $elemMatch: {
+                state: { $in: ['Active', 'Archived', 'Suspended'] satisfies PurposeState[] },
+              },
+            },
+          },
+        ],
       })
       .map(({ data }) => ExportedPurpose.parse(data))
       .toArray()
