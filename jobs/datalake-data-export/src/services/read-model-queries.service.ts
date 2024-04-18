@@ -52,7 +52,7 @@ export class ReadModelQueriesService {
             'data.versions': {
               $size: 1,
               $elemMatch: {
-                state: { $in: ['Active', 'Archived', 'Suspended'] satisfies PurposeState[] },
+                state: { $in: ['Active', 'Archived', 'Suspended', 'Rejected'] satisfies PurposeState[] },
               },
             },
           },
