@@ -24,7 +24,7 @@ describe('getOnboardedTenantsCountMetric', () => {
       10
     )
 
-    const _notOnboardedTenant = getTenantMock<Tenant>({
+    const _notOnboardedTenant = getTenantMock({
       attributes: [{ id: comuniAttributeId }],
       externalId: { origin: 'IPA' },
     })
