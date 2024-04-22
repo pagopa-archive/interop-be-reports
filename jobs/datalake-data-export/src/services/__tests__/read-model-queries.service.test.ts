@@ -96,7 +96,7 @@ describe('read-model-queries.service', () => {
     function toReadModelEServices(
       eservices: Array<EService>
     ): Array<{ data: { id: string; descriptors: Array<{ state: DescriptorState }> } }> {
-      return eservices.map((eservice) => ({ data: eservice }))
+      return eservices.map((eservice) => ({ data: { ...eservice, createdAt: new Date().toISOString() } }))
     }
 
     it('should return all eServices', async () => {
