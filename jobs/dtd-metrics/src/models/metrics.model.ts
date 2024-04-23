@@ -76,7 +76,12 @@ export type TopProducersBySubscribersMetric = z.infer<typeof TopProducersBySubsc
 
 export const TenantDistributionMetric = z.array(
   z.object({
-    activity: z.enum(['Solo fruitori', 'Solo erogatori', 'Sia fruitori che erogatori', 'Solo accesso']),
+    activity: z.enum([
+      'Enti solo fruitori',
+      'Enti solo erogatori',
+      'Enti sia fruitori che erogatori',
+      'Enti con avviati gli sviluppi tecnici',
+    ]),
     count: z.number(),
   })
 )
@@ -107,13 +112,13 @@ export const OnboardedTenantsCountMetric = z.tuple([
     variation: z.number(),
   }),
   z.object({
-    name: z.literal('Pubblici'),
+    name: z.literal('Enti pubblici'),
     totalCount: z.number(),
     lastMonthCount: z.number(),
     variation: z.number(),
   }),
   z.object({
-    name: z.literal('Privati'),
+    name: z.literal('Enti privati'),
     totalCount: z.number(),
     lastMonthCount: z.number(),
     variation: z.number(),
@@ -132,6 +137,18 @@ export const OnboardedTenantsCountMetric = z.tuple([
   }),
   z.object({
     name: z.literal(MACRO_CATEGORIES[9].name),
+    totalCount: z.number(),
+    lastMonthCount: z.number(),
+    variation: z.number(),
+  }),
+  z.object({
+    name: z.literal(MACRO_CATEGORIES[4].name),
+    totalCount: z.number(),
+    lastMonthCount: z.number(),
+    variation: z.number(),
+  }),
+  z.object({
+    name: z.literal('Altri enti pubblici'),
     totalCount: z.number(),
     lastMonthCount: z.number(),
     variation: z.number(),
@@ -211,10 +228,10 @@ export const Metric = z.union([
   z.object({ name: z.literal('andamentoDelleAdesioniPerCategoria'), data: MacroCategoriesOnboardingTrendMetric }),
   z.object({ name: z.literal('distribuzioneDegliEntiPerAttivita'), data: TenantDistributionMetric }),
   z.object({ name: z.literal('eservicePubblicati'), data: PublishedEServicesMetric }),
-  z.object({ name: z.literal('entiErogatoriDiEService'), data: EServicesByMacroCategoriesMetric }),
+  z.object({ name: z.literal('distribuzioneEServicePerEntiErogatori'), data: EServicesByMacroCategoriesMetric }),
   z.object({ name: z.literal('entiChePubblicanoPiuEService'), data: TopProducersMetric }),
-  z.object({ name: z.literal('connessioniFraEnti'), data: TopProducersBySubscribersMetric }),
-  z.object({ name: z.literal('eServicePiuRichiesti'), data: MostSubscribedEServicesMetric }),
+  z.object({ name: z.literal('entiConPiuConnessioniAbilitate'), data: TopProducersBySubscribersMetric }),
+  z.object({ name: z.literal('eServiceConPiuEntiAbilitati'), data: MostSubscribedEServicesMetric }),
   z.object({ name: z.literal('totaleRichiesteDiAccesso'), data: TotalTokensMetric }),
   z.object({ name: z.literal('attivitaDellaPiattaforma'), data: TokensTrendMetric }),
   z.object({ name: z.literal('eServicePiuUtilizzati'), data: MostUsedEServicesMetric }),

@@ -176,6 +176,9 @@ importers:
       eslint:
         specifier: 8.46.0
         version: 8.46.0
+      mongodb-memory-server:
+        specifier: ^8.15.1
+        version: 8.15.1
       prettier:
         specifier: ^3.0.1
         version: 3.0.1

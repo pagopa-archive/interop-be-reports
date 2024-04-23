@@ -1,3 +1,4 @@
+import { MACRO_CATEGORIES } from '../configs/macro-categories.js'
 import { OnboardedTenantsCountMetric } from '../models/metrics.model.js'
 import { GlobalStoreService } from '../services/global-store.service.js'
 import { MetricFactoryFn } from '../services/metrics-producer.service.js'
@@ -6,11 +7,13 @@ import { getMonthsAgoDate, getVariationPercentage } from '../utils/helpers.utils
 export const getOnboardedTenantsCountMetric: MetricFactoryFn<'totaleEnti'> = (_readModel, globalStore) => {
   return OnboardedTenantsCountMetric.parse([
     getMetricData('Totale enti', globalStore),
-    getMetricData('Pubblici', globalStore),
-    getMetricData('Privati', globalStore),
+    getMetricData('Enti pubblici', globalStore),
+    getMetricData('Enti privati', globalStore),
     getMetricData('Comuni', globalStore),
     getMetricData('Regioni e Province autonome', globalStore),
     getMetricData('Università e AFAM', globalStore),
+    getMetricData('Pubbliche Amministrazioni Centrali', globalStore),
+    getMetricData('Altri enti pubblici', globalStore),
   ])
 }
 
@@ -20,12 +23,28 @@ function getMetricData(
 ): OnboardedTenantsCountMetric[number] {
   let tenants: Array<{ onboardedAt: Date }>
 
+  const otherMacroCategories: (typeof MACRO_CATEGORIES)[number]['name'][] = [
+    'Altre Pubbliche Amministrazioni locali',
+    'Aziende Ospedaliere e ASL',
+    'Province e Città Metropolitane',
+    'Enti Nazionali di Previdenza ed Assistenza Sociale',
+    'Consorzi e associazioni regionali',
+    'Scuole',
+    'Istituti di Ricerca',
+    'Stazioni Appaltanti e Gestori di pubblici servizi',
+  ]
+
   switch (name) {
     case 'Totale enti':
       tenants = globalStore.tenants
       break
-    case 'Pubblici':
+    case 'Enti pubblici':
       tenants = globalStore.tenants.filter((t) => t.externalId.origin === 'IPA')
+      break
+    case 'Altri enti pubblici':
+      tenants = otherMacroCategories.flatMap(
+        (macroCategoryName) => globalStore.getMacroCategoryByName(macroCategoryName).tenants
+      )
       break
     default:
       tenants = globalStore.getMacroCategoryByName(name).tenants

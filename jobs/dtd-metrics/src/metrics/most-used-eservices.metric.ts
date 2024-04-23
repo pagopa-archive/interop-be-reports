@@ -58,27 +58,39 @@ async function getMostUsedEServicesPerMacroCategory(
   function generateMostUsedEServices(
     tenantsIds: Array<string>
   ): MostUsedEServicesMetric[keyof MostUsedEServicesMetric][number]['data'] {
-    // Aggregate results to a map of eserviceId -> Set<consumerId>
-    const aggregatedResults = results.reduce<Record<string, Set<string>>>((acc, { eserviceId, consumerId }) => {
+    const aggregatedResults = results.reduce<
+      Record<
+        string,
+        {
+          activeConsumers: Set<string>
+          eserviceName: string
+          producerName: string
+        }
+      >
+    >((acc, { eserviceId, consumerId }) => {
       if (!tenantsIds.includes(consumerId)) return acc
 
       if (!acc[eserviceId]) {
-        acc[eserviceId] = new Set<string>()
+        const eservice = eservicesMap.get(eserviceId)
+        const producer = globalStore.getTenantFromId(eservice.producerId)
+
+        // Skip if the producer or the eservice are not found
+        // This happens when the producer or the eservice are not found in the global store, i.e. they are not part of any macro categories
+        if (!producer) return acc
+
+        acc[eserviceId] = {
+          activeConsumers: new Set(),
+          eserviceName: eservice.name,
+          producerName: producer.name,
+        }
       }
-      acc[eserviceId].add(consumerId)
+      acc[eserviceId].activeConsumers.add(consumerId)
       return acc
     }, {})
 
     // Map aggregated results to an array of objects, one for each eservice
-    return Object.entries(aggregatedResults)
-      .map(([eserviceId, activeConsumers]) => {
-        const eservice = eservicesMap.get(eserviceId)
-        const producerName = globalStore.getTenantFromId(eservice?.producerId)?.name
-
-        if (!eservice || !producerName) {
-          throw new Error(`EService or producer not found for id ${eserviceId}`)
-        }
-
+    return Object.values(aggregatedResults)
+      .map(({ activeConsumers, producerName, eserviceName }) => {
         // For each eservice, count the number of active consumers and group them by macro category
         const activeConsumersByMacroCategory = Array.from(activeConsumers)
           // Get the macro category of each consumer
@@ -100,7 +112,7 @@ async function getMostUsedEServicesPerMacroCategory(
 
         const totalActiveConsumers = activeConsumersByMacroCategory.reduce((acc, { count }) => acc + count, 0)
         return {
-          eserviceName: eservice.name,
+          eserviceName,
           producerName,
           totalActiveConsumers,
           activeConsumersByMacroCategory,
