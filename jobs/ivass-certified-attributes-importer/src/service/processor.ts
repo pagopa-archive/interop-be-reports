@@ -49,9 +49,9 @@ async function assignAttributes(
     const assignments = batchResult.records.filter(record => isAttributeAssigned(record, now))
 
     if (assignments.length > 0) {
-      const taxCodes = assignments.map(org => org.CODICE_FISCALE)
+      const externalId = assignments.map(org => org.CODICE_FISCALE || org.CODICE_IVASS)
 
-      const tenants = await readModel.getIVASSTenants(taxCodes)
+      const tenants = await readModel.getIVASSTenants(externalId)
 
       await Promise.all(
         tenants.map(async tenant => {
@@ -59,7 +59,7 @@ async function assignAttributes(
         })
       )
 
-      allOrgsInFile = allOrgsInFile.concat(assignments.map(a => a.CODICE_FISCALE))
+      allOrgsInFile = allOrgsInFile.concat(assignments.map(a => a.CODICE_FISCALE || a.CODICE_IVASS))
     }
 
     fromLine = fromLine + batchSize
@@ -189,11 +189,16 @@ function getBatch(
       }
     })
     .map(r => {
-      if (!r || !r.CODICE_FISCALE) return null;
-      else return {
-        DATA_ISCRIZIONE_ALBO_ELENCO: r?.DATA_ISCRIZIONE_ALBO_ELENCO,
-        DATA_CANCELLAZIONE_ALBO_ELENCO: r?.DATA_CANCELLAZIONE_ALBO_ELENCO,
-        CODICE_FISCALE: r?.CODICE_FISCALE,
+      if (!r) return null;
+      else {
+        const row: CsvRow = {
+          CODICE_IVASS: r.CODICE_IVASS,
+          DATA_ISCRIZIONE_ALBO_ELENCO: r.DATA_ISCRIZIONE_ALBO_ELENCO,
+          DATA_CANCELLAZIONE_ALBO_ELENCO: r.DATA_CANCELLAZIONE_ALBO_ELENCO,
+          CODICE_FISCALE: r.CODICE_FISCALE,
+        }
+
+        return row;
       }
     })
     .filter((r): r is CsvRow => r !== null)

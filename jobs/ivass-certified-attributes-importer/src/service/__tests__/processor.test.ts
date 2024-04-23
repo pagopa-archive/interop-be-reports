@@ -25,6 +25,7 @@ import {
   persistentTenantAttribute,
 } from './helpers.js'
 import { PersistentTenant } from '../../model/tenant.model.js'
+import { randomUUID } from 'crypto';
 
 describe('IVASS Certified Attributes Importer', () => {
   const tokenGeneratorMock = {} as InteropTokenGenerator
@@ -462,25 +463,41 @@ describe('IVASS Certified Attributes Importer', () => {
     expect(internalRevokeCertifiedAttributeSpy).toBeCalledTimes(1)
   })
 
-  it('should skip CSV file rows with missing Tax Code', async () => {
+  it('should succeed with missing Tax Code', async () => {
     const csvFileContent = `CODICE_IVASS;DATA_ISCRIZIONE_ALBO_ELENCO;DATA_CANCELLAZIONE_ALBO_ELENCO;DENOMINAZIONE_IMPRESA;CODICE_FISCALE
       D0001;2020-12-02;9999-12-31;Org1;
       D0002;2020-06-10;9999-12-31;Org2;0000012345678902
       D0003;2019-07-19;9999-12-31;Org3;`
 
-    const readModelTenants: PersistentTenant[] = [
-      {
-        ...persistentTenant,
-        externalId: { origin: 'IVASS', value: '12345678902' },
-        attributes: [{ ...persistentTenantAttribute }],
-      },
-    ]
+    const tenant1: PersistentTenant = {
+      ...persistentTenant,
+      id: randomUUID(),
+      externalId: { origin: 'IVASS', value: 'D0001' },
+      attributes: [{ ...persistentTenantAttribute, id: ATTRIBUTE_IVASS_INSURANCES_ID }],
+    }
+    const tenant2: PersistentTenant = {
+      ...persistentTenant,
+      id: randomUUID(),
+      externalId: { origin: 'IVASS', value: 'D0003' },
+      attributes: [],
+    }
+
+    const tenant3: PersistentTenant = {
+      ...persistentTenant,
+      id: randomUUID(),
+      externalId: { origin: 'IVASS', value: 'D0005' },
+      attributes: [{ ...persistentTenantAttribute, id: ATTRIBUTE_IVASS_INSURANCES_ID }],
+    }
+
+
+    const readModelTenants: PersistentTenant[] = [tenant1, tenant2, tenant3]
 
     const localDownloadCSVMock = downloadCSVMockGenerator(csvFileContent)
 
     const getIVASSTenantsMock = getTenantsMockGenerator((_) => readModelTenants)
     const getIVASSTenantsSpy = vi.spyOn(readModelQueriesMock, 'getIVASSTenants').mockImplementation(getIVASSTenantsMock)
 
+    const getTenantsWithAttributesMock = getTenantsMockGenerator((_) => [tenant1, tenant3])
     const getTenantsWithAttributesSpy = vi.spyOn(readModelQueriesMock, 'getTenantsWithAttributes').mockImplementation(getTenantsWithAttributesMock)
 
     await importAttributes(
@@ -499,9 +516,13 @@ describe('IVASS Certified Attributes Importer', () => {
     expect(getIVASSTenantsSpy).toBeCalledTimes(1)
     expect(getTenantsWithAttributesSpy).toBeCalledTimes(1)
 
-    expect(refreshableInternalTokenSpy).toBeCalledTimes(1)
+    expect(refreshableInternalTokenSpy).toBeCalledTimes(2)
     expect(internalAssignCertifiedAttributeSpy).toBeCalledTimes(1)
-    expect(internalRevokeCertifiedAttributeSpy).toBeCalledTimes(0)
+    expect(internalAssignCertifiedAttributeSpy.mock.calls[0][0]).toEqual('IVASS')
+    expect(internalAssignCertifiedAttributeSpy.mock.calls[0][1]).toEqual('D0003')
+    expect(internalRevokeCertifiedAttributeSpy).toBeCalledTimes(1)
+    expect(internalRevokeCertifiedAttributeSpy.mock.calls[0][0]).toEqual('IVASS')
+    expect(internalRevokeCertifiedAttributeSpy.mock.calls[0][1]).toEqual('D0005')
   })
 
   it('should unassign attribute for tenants not in the file', async () => {
