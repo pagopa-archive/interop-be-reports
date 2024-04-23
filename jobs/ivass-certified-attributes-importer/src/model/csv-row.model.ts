@@ -20,9 +20,10 @@ export const RawCsvRow = z.object({
 export type RawCsvRow = z.infer<typeof RawCsvRow>
 
 export const CsvRow = z.object({
+  CODICE_IVASS: z.string(),
   DATA_ISCRIZIONE_ALBO_ELENCO: z.date(),
   DATA_CANCELLAZIONE_ALBO_ELENCO: z.date(),
-  CODICE_FISCALE: z.string(),
+  CODICE_FISCALE: z.string().optional(),
 })
 
 export type CsvRow = z.infer<typeof CsvRow>
