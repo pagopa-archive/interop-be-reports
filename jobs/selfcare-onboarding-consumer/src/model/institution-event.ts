@@ -7,9 +7,9 @@ const InstitutionEvent = z.object({
   description: z.string().trim().min(1),
   origin: z.string().trim().min(1),
   originId: z.string().trim().min(1),
-  taxCode: z.string().trim().min(1).optional(),
-  subUnitCode: z.string().optional().nullable(), // AOO/UO ID
-  subUnitType: SubUnitType.optional().nullable(),
+  taxCode: z.string().trim().min(1).nullish(),
+  subUnitCode: z.string().optional().nullish(), // AOO/UO ID
+  subUnitType: SubUnitType.optional().nullish(),
   digitalAddress: z.string().trim().min(1),
 });
 export type InstitutionEvent = z.infer<typeof InstitutionEvent>

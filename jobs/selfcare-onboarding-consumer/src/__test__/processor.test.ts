@@ -163,6 +163,26 @@ describe('Message processor', () => {
 
   })
 
+  it('should upsert non-PA tenant with null tax code', async () => {
+
+    const message = { ...kafkaMessage, value: Buffer.from(JSON.stringify({ ...correctEventPayload, institution: { ...correctInstitutionEventField, origin: "ANAC", originId: "anac_123", taxCode: null, subUnitType: null, subUnitCode: null } })) }
+
+    await configuredProcessor(message, 0)
+
+    expect(refreshableInternalTokenSpy).toBeCalledTimes(1)
+    expect(selfcareUpsertTenantSpy).toBeCalledTimes(1)
+    expect(selfcareUpsertTenantSpy).toHaveBeenCalledWith(
+      expect.objectContaining(
+        {
+          externalId: { origin: "ANAC", value: "anac_123" },
+          selfcareId: correctEventPayload.internalIstitutionID,
+          name: correctInstitutionEventField.description,
+        }),
+      expect.objectContaining({ bearerToken: interopToken.serialized })
+    )
+
+  })
+
   it('should skip upsert of tenant with not allowed origin', async () => {
 
     const message = { ...kafkaMessage, value: Buffer.from(JSON.stringify({ ...correctEventPayload, institution: { ...correctInstitutionEventField, origin: "not-allowed", originId: "ipa_123", taxCode: "tax789", subUnitType: null, subUnitCode: null } })) }
