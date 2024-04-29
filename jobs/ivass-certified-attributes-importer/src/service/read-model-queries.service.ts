@@ -31,7 +31,7 @@ export class ReadModelQueries {
     return await this.readModelClient.tenants
       .aggregate([
         {
-          $match: { 'data.externalId.origin': { $in: 'IVASS' },  'data.externalId.value': { $in: externalId },},
+          $match: { 'data.externalId.origin': 'IVASS',  'data.externalId.value': { $in: externalId },},
         },
         {
           $project: projectUnrevokedCertifiedAttributes,
