@@ -14,7 +14,7 @@ const projectUnrevokedCertifiedAttributes = {
       cond: {
         $and: [
           { $eq: ['$$attribute.type', 'PersistentCertifiedAttribute'] },
-          { $ne: ['$$attribute.revocationTimestamp', null] },
+          { $lt: ['$$attribute.revocationTimestamp', null] },
         ],
       },
     },
