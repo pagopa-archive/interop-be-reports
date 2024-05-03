@@ -201,7 +201,7 @@ async function unassignAttribute(
   jobCorrelationId: string
 ): Promise<void> {
   if (tenantContainsAttribute(tenant, attribute.id)) {
-    logInfo(jobCorrelationId, `Revoking attribute ${attribute.id} for tenant ${tenant.id}`)
+    logInfo(jobCorrelationId, `Revoking attribute ${attribute.id} to tenant ${tenant.id}`)
 
     const token = await refreshableToken.get()
     const context: InteropContext = {
