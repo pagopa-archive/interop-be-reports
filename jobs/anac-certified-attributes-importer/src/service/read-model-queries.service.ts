@@ -2,7 +2,7 @@ import { ReadModelClient } from '@interop-be-reports/commons'
 import { PersistentTenant } from '../model/tenant.model.js'
 import { PersistentAttribute } from '../model/attribute.model.js'
 
-const projectCertifiedAttributes = {
+const projectUnrevokedCertifiedAttributes = {
   _id: 0,
   'data.id': 1,
   'data.externalId': 1,
@@ -11,7 +11,12 @@ const projectCertifiedAttributes = {
     $filter: {
       input: '$data.attributes',
       as: 'attribute',
-      cond: { $eq: ['$$attribute.type', 'PersistentCertifiedAttribute'] },
+      cond: {
+        $and: [
+          { $eq: ['$$attribute.type', 'PersistentCertifiedAttribute'] },
+          { $ne: ['$$attribute.revocationTimestamp', null] },
+        ],
+      },
     },
   },
 }
@@ -20,7 +25,7 @@ export class ReadModelQueries {
   constructor(private readModelClient: ReadModelClient) { }
 
   /**
-   * Retrieve all PA tenants that matches the given IPA codes, with their certified attribute
+   * Retrieve all PA tenants that matches the given IPA codes, with their unrevoked certified attribute
    */
   async getPATenants(ipaCodes: string[]): Promise<PersistentTenant[]> {
     return await this.readModelClient.tenants
@@ -32,7 +37,7 @@ export class ReadModelQueries {
           },
         },
         {
-          $project: projectCertifiedAttributes,
+          $project: projectUnrevokedCertifiedAttributes,
         },
       ])
       .map(({ data }) => PersistentTenant.parse(data))
@@ -40,7 +45,7 @@ export class ReadModelQueries {
   }
 
   /**
-   * Retrieve all non-PA tenants that matches the given tax codes, with their certified attribute
+   * Retrieve all non-PA tenants that matches the given tax codes, with their unrevoked certified attribute
    */
   async getNonPATenants(taxCodes: string[]): Promise<PersistentTenant[]> {
     return await this.readModelClient.tenants
@@ -52,7 +57,7 @@ export class ReadModelQueries {
           },
         },
         {
-          $project: projectCertifiedAttributes,
+          $project: projectUnrevokedCertifiedAttributes,
         },
       ])
       .map(({ data }) => PersistentTenant.parse(data))
@@ -68,7 +73,7 @@ export class ReadModelQueries {
           },
         },
         {
-          $project: projectCertifiedAttributes,
+          $project: projectUnrevokedCertifiedAttributes,
         },
       ])
       .map(({ data }) => PersistentTenant.parse(data))
@@ -110,7 +115,7 @@ export class ReadModelQueries {
           },
         },
         {
-          $project: projectCertifiedAttributes,
+          $project: projectUnrevokedCertifiedAttributes,
         },
       ])
       .map(({ data }) => PersistentTenant.parse(data))

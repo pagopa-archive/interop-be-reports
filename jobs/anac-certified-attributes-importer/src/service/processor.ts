@@ -219,10 +219,7 @@ async function unassignAttribute(
 }
 
 function tenantContainsAttribute(tenant: PersistentTenant, attributeId: string): boolean {
-  return tenant.attributes.find((attribute) =>
-    attribute.id === attributeId &&
-    attribute.type === "PersistentCertifiedAttribute" &&
-    !attribute.revocationTimestamp) !== undefined
+  return tenant.attributes.find((attribute) => attribute.id === attributeId) !== undefined
 }
 
 function getMissingTenants(expectedExternalId: string[], tenants: PersistentTenant[]): string[] {

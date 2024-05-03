@@ -128,39 +128,6 @@ describe('ANAC Certified Attributes Importer', () => {
     expect(internalRevokeCertifiedAttributeSpy).toBeCalledTimes(0)
   })
 
-  it('should succeed, assigning previously revoked attributes', async () => {
-    const csvFileContent = `codiceFiscaleGestore,denominazioneGestore,PEC,codiceIPA,ANAC_incaricato,ANAC_abilitato,ANAC_in_convalida
-0123456789,Org name in IPA,gsp1@pec.it,ipa_code_123,TRUE,TRUE,TRUE`
-
-    const readModelTenants: PersistentTenant[] = [
-      {
-        ...persistentTenant,
-        externalId: { origin: 'IPA', value: 'ipa_code_123' },
-        attributes: [{ ...persistentTenantAttribute, revocationTimestamp: new Date(), id: ATTRIBUTE_ANAC_ABILITATO_ID }],
-      },
-    ]
-
-    const localDownloadCSVMock = downloadCSVMockGenerator(csvFileContent)
-    const downloadCSVSpy = vi.spyOn(sftpClientMock, 'downloadCSV').mockImplementation(localDownloadCSVMock)
-
-    const getPATenantsMock = getTenantsMockGenerator((_) => readModelTenants)
-    const getPATenantsSpy = vi.spyOn(readModelQueriesMock, 'getPATenants').mockImplementation(getPATenantsMock)
-
-    await run()
-
-    expect(downloadCSVSpy).toBeCalledTimes(1)
-    expect(getTenantByIdSpy).toBeCalledTimes(1)
-    expect(getAttributeByExternalIdSpy).toBeCalledTimes(3)
-
-    expect(getPATenantsSpy).toBeCalledTimes(1)
-    expect(getNonPATenantsSpy).toBeCalledTimes(0)
-    expect(getTenantsWithAttributesSpy).toBeCalledTimes(1)
-
-    expect(refreshableInternalTokenSpy).toBeCalledTimes(3)
-    expect(internalAssignCertifiedAttributeSpy).toBeCalledTimes(3)
-    expect(internalRevokeCertifiedAttributeSpy).toBeCalledTimes(0)
-  })
-
   it('should succeed, unassigning only existing attributes', async () => {
     const csvFileContent = `codiceFiscaleGestore,denominazioneGestore,PEC,codiceIPA,ANAC_incaricato,ANAC_abilitato,ANAC_in_convalida
 0123456789,Org name in IPA,gsp1@pec.it,ipa_code_123,FALSE,FALSE,FALSE`
@@ -195,42 +162,6 @@ describe('ANAC Certified Attributes Importer', () => {
     expect(refreshableInternalTokenSpy).toBeCalledTimes(2)
     expect(internalAssignCertifiedAttributeSpy).toBeCalledTimes(0)
     expect(internalRevokeCertifiedAttributeSpy).toBeCalledTimes(2)
-  })
-
-  it('should succeed, unassigning only unrevoked attributes', async () => {
-    const csvFileContent = `codiceFiscaleGestore,denominazioneGestore,PEC,codiceIPA,ANAC_incaricato,ANAC_abilitato,ANAC_in_convalida
-0123456789,Org name in IPA,gsp1@pec.it,ipa_code_123,FALSE,FALSE,FALSE`
-
-    const readModelTenants: PersistentTenant[] = [
-      {
-        ...persistentTenant,
-        externalId: { origin: 'IPA', value: 'ipa_code_123' },
-        attributes: [
-          { ...persistentTenantAttribute, revocationTimestamp: new Date(), id: ATTRIBUTE_ANAC_ABILITATO_ID },
-          { ...persistentTenantAttribute, id: ATTRIBUTE_ANAC_INCARICATO_ID },
-        ],
-      },
-    ]
-
-    const localDownloadCSVMock = downloadCSVMockGenerator(csvFileContent)
-    const downloadCSVSpy = vi.spyOn(sftpClientMock, 'downloadCSV').mockImplementation(localDownloadCSVMock)
-
-    const getPATenantsMock = getTenantsMockGenerator((_) => readModelTenants)
-    const getPATenantsSpy = vi.spyOn(readModelQueriesMock, 'getPATenants').mockImplementation(getPATenantsMock)
-
-    await run()
-
-    expect(downloadCSVSpy).toBeCalledTimes(1)
-    expect(getTenantByIdSpy).toBeCalledTimes(1)
-    expect(getAttributeByExternalIdSpy).toBeCalledTimes(3)
-
-    expect(getPATenantsSpy).toBeCalledTimes(1)
-    expect(getNonPATenantsSpy).toBeCalledTimes(0)
-    expect(getTenantsWithAttributesSpy).toBeCalledTimes(1)
-
-    expect(refreshableInternalTokenSpy).toBeCalledTimes(1)
-    expect(internalAssignCertifiedAttributeSpy).toBeCalledTimes(0)
-    expect(internalRevokeCertifiedAttributeSpy).toBeCalledTimes(1)
   })
 
   it('should succeed, only for tenants that exist on read model ', async () => {
