@@ -1,5 +1,5 @@
 import { ANAC_ABILITATO_CODE, ANAC_INCARICATO_CODE, ANAC_IN_CONVALIDA_CODE, SftpConfig } from '../../config/index.js'
-import { InteropContext, PersistentAttribute, PersistentTenant, PersistentTenantAttribute } from '../../model/index.js'
+import { InteropContext, PersistentAttribute, PersistentCertifiedAttribute, PersistentTenant } from '../../model/index.js'
 
 export const sftpConfigTest: SftpConfig = {
   host: 'host',
@@ -85,7 +85,7 @@ export const persistentAttribute: PersistentAttribute = {
   code: 'attributeCode',
 }
 
-export const persistentTenantAttribute: PersistentTenantAttribute = {
+export const persistentTenantAttribute: PersistentCertifiedAttribute = {
   id: '7a04c906-1525-4c68-8a5b-d740d77d9c80',
   type: 'PersistentCertifiedAttribute',
   assignmentTimestamp: new Date(),
