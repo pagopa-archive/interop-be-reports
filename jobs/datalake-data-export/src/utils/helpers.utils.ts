@@ -10,6 +10,9 @@ export function getNdjsonBucketKey(collection: ExportedCollection, date: Date): 
   return format(date, `'${collection}/'yyyyMMdd'/'yyyyMMdd'_'HHmmss'_${randomUUID()}.ndjson'`)
 }
 
+/**
+ * Get the path where to store the count file
+ */
 export function getDataCountBucketKey(collection: ExportedCollection, date: Date): string {
   return format(date, `'${collection}/'yyyyMMdd'/'yyyyMMdd'_'HHmmss'_${randomUUID()}_count.json'`)
 }
