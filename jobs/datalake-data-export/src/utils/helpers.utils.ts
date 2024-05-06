@@ -1,13 +1,20 @@
 import { randomUUID } from 'crypto'
-import { DataType } from '../models.js'
+import { ExportedCollection } from '../models.js'
 import { format } from 'date-fns'
 import { logError, logInfo, logWarn } from '@interop-be-reports/commons'
 
 /**
  * Get the path where to store the ndjson file
  */
-export function getNdjsonBucketKey(dataType: DataType, date: Date): string {
-  return format(date, `'${dataType}/'yyyyMMdd'/'yyyyMMdd'_'HHmmss'_${randomUUID()}.ndjson'`)
+export function getNdjsonBucketKey(collection: ExportedCollection, date: Date): string {
+  return format(date, `'${collection}/'yyyyMMdd'/'yyyyMMdd'_'HHmmss'_${randomUUID()}.ndjson'`)
+}
+
+/**
+ * Get the path where to store the count file
+ */
+export function getDataCountBucketKey(collection: ExportedCollection, date: Date): string {
+  return format(date, `'${collection}/'yyyyMMdd'/'yyyyMMdd'_'HHmmss'_${randomUUID()}_count.json'`)
 }
 
 /**
