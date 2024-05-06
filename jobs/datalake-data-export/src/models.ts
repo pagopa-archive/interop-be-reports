@@ -1,7 +1,7 @@
 import { Agreement, EService, EServiceDescriptor, Purpose, PurposeVersion, Tenant } from '@interop-be-reports/commons'
 import { z } from 'zod'
 
-export type DataType = 'tenants' | 'eservices' | 'agreements' | 'purposes'
+export type ExportedCollection = 'tenants' | 'eservices' | 'agreements' | 'purposes'
 
 /**
  * The pick method used to extract the fields from the original type is not
