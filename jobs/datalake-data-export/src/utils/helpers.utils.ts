@@ -7,10 +7,10 @@ import { logError, logInfo, logWarn } from '@interop-be-reports/commons'
  * Get the path where to store the ndjson file
  * - data / ...
  *   - [collection] /
- *      - 'yyyyMMdd' /
- *        - 'yyyyMMdd_HHmmss_[random_uuid].njson
- *        - 'yyyyMMdd_HHmmss_[random_uuid].njson
- *        - 'yyyyMMdd_HHmmss_[random_uuid].njson
+ *      - yyyyMMdd /
+ *        - yyyyMMdd_HHmmss_[random_uuid].njson
+ *        - yyyyMMdd_HHmmss_[random_uuid].njson
+ *        - yyyyMMdd_HHmmss_[random_uuid].njson
  * - count / ...
  */
 export function getNdjsonBucketKey(collection: ExportedCollection, date: Date): string {
@@ -22,7 +22,7 @@ export function getNdjsonBucketKey(collection: ExportedCollection, date: Date): 
  * - data / ...
  * - count /
  *   - [collection] /
- *      - 'yyyyMMdd' /
+ *      - yyyyMMdd /
  *        - yyyyMMdd_HHmmss.json
  *        - yyyyMMdd_HHmmss.json
  *        - yyyyMMdd_HHmmss.json
