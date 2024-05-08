@@ -62,7 +62,7 @@ log.info(`Uploading data to ${env.DATALAKE_STORAGE_BUCKET} bucket...`)
 const s3Bucket = new AwsS3BucketClient(env.DATALAKE_STORAGE_BUCKET)
 for (const [collection, ndjsonFiles, count] of dataToExport) {
   const countBucketKey = getDataCountBucketKey(collection, exportTimestamp)
-  await s3Bucket.uploadData({ count }, countBucketKey)
+  await s3Bucket.uploadData({ count, exportTimestamp }, countBucketKey)
   for (const ndjson of ndjsonFiles) {
     const bucketKey = getNdjsonBucketKey(collection, exportTimestamp)
     await s3Bucket.uploadData(ndjson, bucketKey)
