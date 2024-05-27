@@ -21,7 +21,7 @@ const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 const findDownloadButton = async (page: puppeteer.Page) => {
   const table = await page.$("html > body > inquiry-root > #sub-navbar > inquiry-area-download > [class='card'] > inquiry-grid > ag-grid-angular > [ref='eRootWrapper'] > [ref='rootWrapperBody'] > [ref='gridPanel']");
-  const row = await table?.$("[ref='eBodyViewport'] > [ref='eCenterColsClipper'] > [ref='eCenterViewport'] > [ref='eCenterContainer'] > [row-index='2']");
+  const row = await table?.$("[ref='eBodyViewport'] > [ref='eCenterColsClipper'] > [ref='eCenterViewport'] > [ref='eCenterContainer'] > [row-index='3']");
   const csvButton = await row?.$("[col-id='csv'] > inquiry-pdf-csv > div > img");
   return csvButton
 };
