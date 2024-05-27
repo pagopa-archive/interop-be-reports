@@ -40,7 +40,7 @@ importers:
         version: 9.1.0
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/node':
         specifier: 20.4.9
@@ -104,7 +104,7 @@ importers:
         version: 6.9.4
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -159,7 +159,7 @@ importers:
         version: 5.8.0
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -220,7 +220,7 @@ importers:
         version: 5.8.0
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -269,7 +269,7 @@ importers:
         version: 5.8.0
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -330,7 +330,7 @@ importers:
         version: 3.1.1
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -394,7 +394,7 @@ importers:
         version: 21.5.2(typescript@5.1.6)
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -446,7 +446,7 @@ importers:
         version: 5.8.0
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -504,7 +504,7 @@ importers:
         version: 4.17.21
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/html2json':
         specifier: 1.0.1
@@ -565,7 +565,7 @@ importers:
         version: 6.9.4
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -617,7 +617,7 @@ importers:
         version: 2.2.4
       zod:
         specifier: ^3.21.4
-        version: 3.21.4
+        version: 3.22.3
     devDependencies:
       '@types/lodash':
         specifier: 4.14.196
@@ -7361,6 +7361,6 @@ packages:
       readable-stream: 3.6.2
     dev: false
 
-  /zod@3.21.4:
-    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+  /zod@3.22.3:
+    resolution: {integrity: sha512-EjIevzuJRiRPbVH4mGc8nApb/lVLKVpmUhAaR5R5doKGfAnGJ6Gr3CViAVjP+4FWSxCsybeWQdcgCtbX+7oZug==}
     dev: false
