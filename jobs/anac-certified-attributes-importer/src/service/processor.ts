@@ -96,9 +96,9 @@ async function unassignMissingOrgsAttributes(readModel: ReadModelQueries, tenant
   await Promise.all(tenantsWithAttribute
     .filter(tenant => !allOrgsInFile.includes(tenant.externalId.value))
     .map(async tenant => {
-      await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacAbilitato)
-      await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacInConvalida)
-      await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacIncaricato)
+      await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacAbilitato, jobCorrelationId)
+      await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacInConvalida, jobCorrelationId)
+      await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacIncaricato, jobCorrelationId)
     })
   )
 
@@ -154,16 +154,16 @@ const prepareTenantsProcessor =
 
       await Promise.all(
         zipBy(orgs, tenants, extractTenantCode, (tenant) => tenant.externalId.value).map(async ([org, tenant]) => {
-          if (org.anac_abilitato) await assignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacAbilitato)
-          else await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacAbilitato)
+          if (org.anac_abilitato) await assignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacAbilitato, jobCorrelationId)
+          else await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacAbilitato, jobCorrelationId)
 
           if (org.anac_in_convalida)
-            await assignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacInConvalida)
-          else await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacInConvalida)
+            await assignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacInConvalida, jobCorrelationId)
+          else await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacInConvalida, jobCorrelationId)
 
           if (org.anac_incaricato)
-            await assignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacIncaricato)
-          else await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacIncaricato)
+            await assignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacIncaricato, jobCorrelationId)
+          else await unassignAttribute(tenantProcess, refreshableToken, tenant, attributes.anacIncaricato, jobCorrelationId)
         })
       )
     }
@@ -172,9 +172,12 @@ async function assignAttribute(
   tenantProcess: TenantProcessService,
   refreshableToken: RefreshableInteropToken,
   tenant: PersistentTenant,
-  attribute: AttributeIdentifiers
+  attribute: AttributeIdentifiers,
+  jobCorrelationId: string
 ): Promise<void> {
   if (!tenantContainsAttribute(tenant, attribute.id)) {
+    logInfo(jobCorrelationId, `Assigning attribute ${attribute.id} to tenant ${tenant.id}`)
+
     const token = await refreshableToken.get()
     const context: InteropContext = {
       correlationId: crypto.randomUUID(),
@@ -194,9 +197,12 @@ async function unassignAttribute(
   tenantProcess: TenantProcessService,
   refreshableToken: RefreshableInteropToken,
   tenant: PersistentTenant,
-  attribute: AttributeIdentifiers
+  attribute: AttributeIdentifiers,
+  jobCorrelationId: string
 ): Promise<void> {
   if (tenantContainsAttribute(tenant, attribute.id)) {
+    logInfo(jobCorrelationId, `Revoking attribute ${attribute.id} to tenant ${tenant.id}`)
+
     const token = await refreshableToken.get()
     const context: InteropContext = {
       correlationId: crypto.randomUUID(),

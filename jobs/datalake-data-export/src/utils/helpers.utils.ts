@@ -1,13 +1,34 @@
 import { randomUUID } from 'crypto'
-import { DataType } from '../models.js'
+import { ExportedCollection } from '../models.js'
 import { format } from 'date-fns'
 import { logError, logInfo, logWarn } from '@interop-be-reports/commons'
 
 /**
  * Get the path where to store the ndjson file
+ * - data / ...
+ *   - [collection] /
+ *      - yyyyMMdd /
+ *        - yyyyMMdd_HHmmss_[random_uuid].njson
+ *        - yyyyMMdd_HHmmss_[random_uuid].njson
+ *        - yyyyMMdd_HHmmss_[random_uuid].njson
+ * - count / ...
  */
-export function getNdjsonBucketKey(dataType: DataType, date: Date): string {
-  return format(date, `'${dataType}/'yyyyMMdd'/'yyyyMMdd'_'HHmmss'_${randomUUID()}.ndjson'`)
+export function getNdjsonBucketKey(collection: ExportedCollection, date: Date): string {
+  return format(date, `'data/${collection}/'yyyyMMdd'/'yyyyMMdd'_'HHmmss'_${randomUUID()}.ndjson'`)
+}
+
+/**
+ * Get the path where to store the count file
+ * - data / ...
+ * - count /
+ *   - [collection] /
+ *      - yyyyMMdd /
+ *        - yyyyMMdd_HHmmss.json
+ *        - yyyyMMdd_HHmmss.json
+ *        - yyyyMMdd_HHmmss.json
+ */
+export function getDataCountBucketKey(collection: ExportedCollection, date: Date): string {
+  return format(date, `'count/${collection}/'yyyyMMdd'/'yyyyMMdd'_'HHmmss'.json'`)
 }
 
 /**
