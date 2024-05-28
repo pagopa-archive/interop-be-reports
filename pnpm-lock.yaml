@@ -101,7 +101,7 @@ importers:
         version: 5.8.0
       nodemailer:
         specifier: ^6.9.4
-        version: 6.9.4
+        version: 6.9.9
       zod:
         specifier: ^3.21.4
         version: 3.22.3
@@ -562,7 +562,7 @@ importers:
         version: 5.8.0
       nodemailer:
         specifier: ^6.9.4
-        version: 6.9.4
+        version: 6.9.9
       zod:
         specifier: ^3.21.4
         version: 3.22.3
@@ -1345,8 +1345,8 @@ packages:
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-sdk/types': 3.387.0
-      '@smithy/property-provider': 2.0.2
-      '@smithy/types': 2.1.0
+      '@smithy/property-provider': 2.0.5
+      '@smithy/types': 2.2.2
       tslib: 2.6.1
     dev: false
 
@@ -1398,10 +1398,10 @@ packages:
       '@aws-sdk/credential-provider-sso': 3.387.0
       '@aws-sdk/credential-provider-web-identity': 3.387.0
       '@aws-sdk/types': 3.387.0
-      '@smithy/credential-provider-imds': 2.0.2
-      '@smithy/property-provider': 2.0.2
+      '@smithy/credential-provider-imds': 2.0.5
+      '@smithy/property-provider': 2.0.5
       '@smithy/shared-ini-file-loader': 2.0.2
-      '@smithy/types': 2.1.0
+      '@smithy/types': 2.2.2
       tslib: 2.6.1
     transitivePeerDependencies:
       - aws-crt
@@ -1515,9 +1515,9 @@ packages:
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-sdk/types': 3.387.0
-      '@smithy/property-provider': 2.0.2
+      '@smithy/property-provider': 2.0.5
       '@smithy/shared-ini-file-loader': 2.0.2
-      '@smithy/types': 2.1.0
+      '@smithy/types': 2.2.2
       tslib: 2.6.1
     dev: false
 
@@ -1552,9 +1552,9 @@ packages:
       '@aws-sdk/client-sso': 3.387.0
       '@aws-sdk/token-providers': 3.387.0
       '@aws-sdk/types': 3.387.0
-      '@smithy/property-provider': 2.0.2
+      '@smithy/property-provider': 2.0.5
       '@smithy/shared-ini-file-loader': 2.0.2
-      '@smithy/types': 2.1.0
+      '@smithy/types': 2.2.2
       tslib: 2.6.1
     transitivePeerDependencies:
       - aws-crt
@@ -1598,8 +1598,8 @@ packages:
     engines: {node: '>=14.0.0'}
     dependencies:
       '@aws-sdk/types': 3.387.0
-      '@smithy/property-provider': 2.0.2
-      '@smithy/types': 2.1.0
+      '@smithy/property-provider': 2.0.5
+      '@smithy/types': 2.2.2
       tslib: 2.6.1
     dev: false
 
@@ -3925,7 +3925,7 @@ packages:
     resolution: {integrity: sha512-3w7AM0moGyBmr9gMBGE7+pqG3cjboRvmMyRhpesbJoOUHO0BV1Qrk00M/wQ3EHJAQXM3dehQfFNUf7sR6nT6+Q==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      '@smithy/is-array-buffer': 2.1.0
+      '@smithy/is-array-buffer': 2.2.0
       tslib: 2.6.1
     dev: false
 
@@ -6236,8 +6236,8 @@ packages:
       whatwg-url: 5.0.0
     dev: false
 
-  /nodemailer@6.9.4:
-    resolution: {integrity: sha512-CXjQvrQZV4+6X5wP6ZIgdehJamI63MFoYFGGPtHudWym9qaEHDNdPzaj5bfMCvxG1vhAileSWW90q7nL0N36mA==}
+  /nodemailer@6.9.9:
+    resolution: {integrity: sha512-dexTll8zqQoVJEZPwQAKzxxtFn0qTnjdQTchoU6Re9BUUGBJiOy3YMn/0ShTW6J5M0dfQ1NeDeRTTl4oIWgQMA==}
     engines: {node: '>=6.0.0'}
     dev: false
 
