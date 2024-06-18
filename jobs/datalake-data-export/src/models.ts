@@ -1,4 +1,12 @@
-import { Agreement, EService, EServiceDescriptor, Purpose, PurposeVersion, Tenant } from '@interop-be-reports/commons'
+import {
+  Agreement,
+  CatalogDocument,
+  EService,
+  EServiceDescriptor,
+  Purpose,
+  PurposeVersion,
+  Tenant,
+} from '@interop-be-reports/commons'
 import { z } from 'zod'
 
 export type ExportedCollection = 'tenants' | 'eservices' | 'agreements' | 'purposes'
@@ -23,6 +31,10 @@ export const ExportedTenant = Tenant.pick({
 } satisfies StrictPick<Tenant>)
 export type ExportedTenant = z.infer<typeof ExportedTenant>
 
+const ExportedCatalogDocument = CatalogDocument.pick({
+  checksum: true,
+} satisfies StrictPick<CatalogDocument>)
+
 const ExportedDescriptor = EServiceDescriptor.pick({
   id: true,
   description: true,
@@ -35,7 +47,11 @@ const ExportedDescriptor = EServiceDescriptor.pick({
   suspendedAt: true,
   deprecatedAt: true,
   archivedAt: true,
-} satisfies StrictPick<EServiceDescriptor>)
+} satisfies StrictPick<EServiceDescriptor>).and(
+  z.object({
+    interface: ExportedCatalogDocument.optional(),
+  })
+)
 export const ExportedEService = EService.pick({
   id: true,
   producerId: true,
