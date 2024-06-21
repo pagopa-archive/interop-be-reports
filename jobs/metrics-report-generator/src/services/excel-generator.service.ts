@@ -25,7 +25,9 @@ export class ExcelGenerator {
   }
 
   public async generateExcelFile(): Promise<Buffer> {
-    return (await this.workbook.xlsx.writeBuffer()) as Buffer
+    return (await this.workbook.xlsx.writeBuffer({
+      zip: { compression: 'DEFLATE', compressionOptions: { level: 9 } },
+    })) as Buffer
   }
 
   private adjustColumnWidths(worksheet: ExcelJs.Worksheet): void {
