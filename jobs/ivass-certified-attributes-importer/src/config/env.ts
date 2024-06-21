@@ -2,7 +2,6 @@ import { z } from 'zod'
 import dotenv from 'dotenv'
 
 const Env = z.object({
-  SOURCE_FILE_DOWNLOAD_DIR: z.string(),
   SOURCE_URL: z.string(),
   HISTORY_BUCKET_NAME: z.string(),
 

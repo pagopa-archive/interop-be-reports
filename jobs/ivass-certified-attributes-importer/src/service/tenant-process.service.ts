@@ -19,12 +19,12 @@ export class TenantProcessService {
         {
           headers: {
             'X-Correlation-Id': context.correlationId,
-            'Authorization': `Bearer ${context.bearerToken}`,
+            Authorization: `Bearer ${context.bearerToken}`,
             'Content-Type': false,
           },
         }
       )
-      .catch((err) => {
+      .catch((err: Error) => {
         logError(context.correlationId, `Error on internalAssignCertifiedAttribute. Reason: ${err.message}`)
         throw Error(`Unexpected response from internalAssignCertifiedAttribute. Reason: ${err.message}`)
       })
@@ -44,12 +44,12 @@ export class TenantProcessService {
         {
           headers: {
             'X-Correlation-Id': context.correlationId,
-            'Authorization': `Bearer ${context.bearerToken}`,
+            Authorization: `Bearer ${context.bearerToken}`,
             'Content-Type': 'application/json',
           },
         }
       )
-      .catch((err) => {
+      .catch((err: Error) => {
         logError(context.correlationId, `Error on internalRevokeCertifiedAttribute. Reason: ${err.message}`)
         throw Error(`Unexpected response from internalRevokeCertifiedAttribute. Reason: ${err.message}`)
       })

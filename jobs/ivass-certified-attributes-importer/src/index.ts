@@ -1,6 +1,5 @@
-import { env } from "./config/env.js";
-import { SourceFileConfig } from "./config/sourcefile.config.js";
-import { downloadCSV } from "./service/file-downloader.js";
+import { env } from './config/env.js'
+import { downloadCSV } from './service/file-downloader.js'
 import {
   AwsS3BucketClient,
   InteropTokenGenerator,
@@ -9,14 +8,9 @@ import {
   RefreshableInteropToken,
   TokenGenerationConfig,
 } from '@interop-be-reports/commons'
-import { ReadModelQueries } from "./service/read-model-queries.service.js";
-import { TenantProcessService } from "./service/tenant-process.service.js";
-import { importAttributes } from "./service/processor.js";
-
-const sourceFileConfig: SourceFileConfig = {
-  sourceUrl: env.SOURCE_URL,
-  outputDir: env.SOURCE_FILE_DOWNLOAD_DIR
-}
+import { ReadModelQueries } from './service/read-model-queries.service.js'
+import { TenantProcessService } from './service/tenant-process.service.js'
+import { importAttributes } from './service/processor.js'
 
 const readModelConfig: ReadModelConfig = {
   mongodbReplicaSet: env.MONGODB_REPLICA_SET,
@@ -40,7 +34,7 @@ const tokenGeneratorConfig: TokenGenerationConfig = {
 
 const awsS3BucketClient = new AwsS3BucketClient(env.HISTORY_BUCKET_NAME)
 
-const csvDownloader = () => downloadCSV(awsS3BucketClient, sourceFileConfig)
+const csvDownloader = (): Promise<string> => downloadCSV(env.SOURCE_URL, awsS3BucketClient)
 const readModelClient: ReadModelClient = await ReadModelClient.connect(readModelConfig)
 const readModelQueries: ReadModelQueries = new ReadModelQueries(readModelClient)
 
