@@ -9,7 +9,7 @@ WORKDIR /app
 RUN corepack enable
 COPY . .
 RUN pnpm install --frozen-lockfile
-RUN pnpm turbo prune --scope=ivass-certified-attributes-importer --docker
+RUN pnpm turbo prune --scope=anac-certified-attributes-importer --docker
 
 # remove all empty node_modules folder structure
 RUN rm -rf /app/out/full/*/*/node_modules
