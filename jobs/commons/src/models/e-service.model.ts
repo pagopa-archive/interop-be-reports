@@ -22,6 +22,7 @@ export const CatalogDocument = z.object({
   checksum: z.string(),
   uploadDate: z.string().pipe(z.coerce.date()),
 })
+export type CatalogDocument = z.infer<typeof CatalogDocument>
 
 export const AgreementApprovalPolicy = z.enum(['Automatic', 'Manual'])
 
