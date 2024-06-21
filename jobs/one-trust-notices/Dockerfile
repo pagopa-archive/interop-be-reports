@@ -8,7 +8,8 @@ RUN apk update
 WORKDIR /app
 RUN corepack enable
 COPY . .
-RUN pnpm --package=turbo dlx turbo prune --scope=one-trust-notices --docker
+RUN pnpm install --frozen-lockfile
+RUN pnpm turbo prune --scope=one-trust-notices --docker
 
 # remove all empty node_modules folder structure
 RUN rm -rf /app/out/full/*/*/node_modules
@@ -24,10 +25,10 @@ COPY --from=builder /app/tsconfig.json ./tsconfig.json
 COPY --from=builder /app/out/json/ .
 COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN corepack enable
-RUN pnpm install --frozen-lockfile
 
 # Build the project
 COPY --from=builder /app/out/full/ .
-RUN pnpm dlx turbo run build --filter=one-trust-notices
+RUN pnpm install --frozen-lockfile
+RUN pnpm turbo run build --filter=one-trust-notices
 
 CMD node ./jobs/one-trust-notices/dist
