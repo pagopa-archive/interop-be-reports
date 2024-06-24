@@ -8,7 +8,7 @@
     "lint:autofix": "eslint . --ext .ts,.tsx --fix",
     "format:check": "prettier --check src",
     "format:write": "prettier --write src",
-    "start": "node --watch --no-warnings --loader ts-node/esm ./src/index.ts",
+    "start": "node --watch --loader ts-node/esm ./src/index.ts",
     "build": "tsc"
   },
   "devDependencies": {
@@ -26,7 +26,7 @@
     "@aws-sdk/client-s3": "^3.387.0",
     "dotenv": "^16.3.1",
     "lodash": "^4.17.21",
-    "mongodb": "^5.7.0",
+    "mongodb": "^6.7.0",
     "zod": "^3.21.4",
     "@interop-be-reports/commons": "workspace:*"
   }
