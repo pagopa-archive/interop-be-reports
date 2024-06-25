@@ -127,7 +127,7 @@ function createPackageJson(jobName) {
       'lint:autofix': 'eslint . --ext .ts,.tsx --fix',
       'format:check': 'prettier --check src',
       'format:write': 'prettier --write src',
-      start: 'node --watch --no-warnings --loader ts-node/esm ./src/index.ts',
+      start: 'node --watch --loader ts-node/esm ./src/index.ts',
       build: 'tsc',
     },
     devDependencies: DEV_DEPENDENCIES,
