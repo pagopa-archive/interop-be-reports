@@ -78,7 +78,10 @@ const mailer = new Mailer({
 })
 
 await mailer.sendMail({
-  from: env.REPORT_SENDER,
+  from: {
+    name: env.REPORT_SENDER_LABEL,
+    address: env.REPORT_SENDER_MAIL,
+  },
   to: env.MAIL_RECIPIENTS,
   subject: EMAIL_SUBJECT,
   text: EMAIL_TEXT,

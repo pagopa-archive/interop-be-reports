@@ -25,7 +25,8 @@ export const Env = z.object({
   SMTP_PASSWORD: z.string(),
   SMTP_SECURE: z.string().transform((value) => value === 'true'),
   MAIL_RECIPIENTS: z.string().transform((value) => value.split(',')),
-  REPORT_SENDER: z.string().email(),
+  REPORT_SENDER_MAIL: z.string().email(),
+  REPORT_SENDER_LABEL: z.string(),
 
   ATHENA_TOKENS_DB_NAME: z.string(),
   ATHENA_OUTPUT_BUCKET: z.string(),
