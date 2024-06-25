@@ -53,7 +53,7 @@ async function main(): Promise<void> {
   })
 
   await mailer.sendMail({
-    from: env.SMTP_USER,
+    from: env.REPORT_SENDER,
     to: env.MAIL_RECIPIENTS,
     subject: MAIL_SUBJECT,
     text: MAIL_BODY,
