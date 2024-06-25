@@ -78,7 +78,7 @@ const mailer = new Mailer({
 })
 
 await mailer.sendMail({
-  from: env.SMTP_USER,
+  from: env.REPORT_SENDER,
   to: env.MAIL_RECIPIENTS,
   subject: EMAIL_SUBJECT,
   text: EMAIL_TEXT,
