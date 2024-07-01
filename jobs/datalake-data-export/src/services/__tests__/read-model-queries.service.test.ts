@@ -108,6 +108,42 @@ describe('read-model-queries.service', () => {
       expect(result).toHaveLength(eservices.length)
     })
 
+    it('should not return draft descriptors in the e-service', async () => {
+      const eservices = toReadModelEServices([
+        getEServiceMock({
+          descriptors: [
+            {
+              id: 'a9c705d9-ecdb-47ff-bcd2-667495b111f2',
+              state: 'Published',
+              version: '1',
+              attributes: {
+                certified: [],
+                verified: [],
+                declared: [],
+              },
+            },
+            {
+              id: 'a9c705d9-ecdb-47ff-bcd2-667495b111f3',
+              state: 'Draft',
+              version: '2',
+              attributes: {
+                certified: [],
+                verified: [],
+                declared: [],
+              },
+            },
+          ],
+        }),
+      ])
+
+      await seedCollection('eservices', eservices)
+
+      const result = await readModelQueriesService.getEServices()
+      expect(result).toHaveLength(eservices.length)
+      expect(result[0].descriptors).toHaveLength(1)
+      expect(result[0].descriptors[0].state).toEqual('Published')
+    })
+
     it('should return empty array if no eServices are found', async () => {
       const result = await readModelQueriesService.getEServices()
       expect(result).toHaveLength(0)

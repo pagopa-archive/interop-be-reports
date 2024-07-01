@@ -28,7 +28,12 @@ export class ReadModelQueriesService {
           },
         ],
       })
-      .map(({ data }) => ExportedEService.parse(data))
+      .map(({ data }) =>
+        ExportedEService.parse({
+          ...data,
+          descriptors: data.descriptors.filter((descriptor) => descriptor.state !== 'Draft'),
+        })
+      )
       .toArray()
   }
 
