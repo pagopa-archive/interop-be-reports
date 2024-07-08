@@ -12,7 +12,6 @@ export const PurposeVersionDocument = z.object({
 export const PurposeVersion = z.object({
   id: z.string().uuid(),
   state: PurposeState,
-  expectedApprovalDate: z.string().optional(),
   riskAnalysis: PurposeVersionDocument.optional(),
   dailyCalls: z.number(),
   createdAt: z.string().pipe(z.coerce.date()),
