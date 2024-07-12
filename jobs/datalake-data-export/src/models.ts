@@ -88,7 +88,6 @@ const ExportedPurposeVersion = PurposeVersion.pick({
   createdAt: true,
   suspendedAt: true,
   firstActivationAt: true,
-  expectedApprovalDate: true,
   dailyCalls: true,
 } satisfies StrictPick<PurposeVersion>)
 export const ExportedPurpose = Purpose.pick({
