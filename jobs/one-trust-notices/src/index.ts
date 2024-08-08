@@ -20,7 +20,8 @@ async function main(): Promise<void> {
   const historyBucketClient = new AwsS3BucketClient(env.HISTORY_STORAGE_BUCKET)
   const contentBucketClient = new AwsS3BucketClient(env.CONTENT_STORAGE_BUCKET)
   const dynamoDbTableClient = new DynamoDbTableClient<OneTrustNoticeDBSchema>(
-    env.PRIVACY_NOTICES_DYNAMO_TABLE_NAME
+    env.PRIVACY_NOTICES_DYNAMO_TABLE_NAME,
+    env.AWS_REGION
   )
 
   log('Program started.\n')

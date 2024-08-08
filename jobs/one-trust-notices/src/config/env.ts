@@ -2,6 +2,8 @@ import { z } from 'zod'
 import dotenv from 'dotenv'
 
 const Env = z.object({
+  AWS_REGION: z.string(),
+  
   LANGS: z.string().transform((value) => value.split(',')),
 
   CONTENT_STORAGE_BUCKET: z.string(),
