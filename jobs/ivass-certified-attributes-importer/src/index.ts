@@ -32,7 +32,7 @@ const tokenGeneratorConfig: TokenGenerationConfig = {
   secondsDuration: env.INTERNAL_JWT_SECONDS_DURATION,
 }
 
-const awsS3BucketClient = new AwsS3BucketClient(env.HISTORY_BUCKET_NAME)
+const awsS3BucketClient = new AwsS3BucketClient(env.HISTORY_BUCKET_NAME, env.AWS_REGION)
 
 const csvDownloader = (): Promise<string> => downloadCSV(env.SOURCE_URL, awsS3BucketClient)
 const readModelClient: ReadModelClient = await ReadModelClient.connect(readModelConfig)

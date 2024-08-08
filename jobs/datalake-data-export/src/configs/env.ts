@@ -2,6 +2,8 @@ import dotenv from 'dotenv'
 import { z } from 'zod'
 
 export const Env = z.object({
+  AWS_REGION: z.string(),
+  
   READ_MODEL_DB_USER: z.string(),
   READ_MODEL_DB_PASSWORD: z.string(),
   READ_MODEL_DB_HOST: z.string(),

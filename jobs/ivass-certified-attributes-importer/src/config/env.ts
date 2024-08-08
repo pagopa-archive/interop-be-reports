@@ -2,6 +2,8 @@ import { z } from 'zod'
 import dotenv from 'dotenv'
 
 const Env = z.object({
+  AWS_REGION: z.string(),
+  
   SOURCE_URL: z.string(),
   HISTORY_BUCKET_NAME: z.string(),
 
