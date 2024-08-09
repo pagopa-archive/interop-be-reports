@@ -25,7 +25,7 @@ const readModelClient = await ReadModelClient.connect({
   readModelDbName: env.READ_MODEL_DB_NAME,
 })
 
-const awsS3BucketClient = new AwsS3BucketClient(env.STORAGE_BUCKET)
+const awsS3BucketClient = new AwsS3BucketClient(env.STORAGE_BUCKET, env.AWS_REGION)
 
 log('Getting e-service data...')
 const eservices = await getEServices(readModelClient)

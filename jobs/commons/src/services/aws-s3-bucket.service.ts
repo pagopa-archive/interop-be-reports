@@ -11,10 +11,8 @@ import * as crypto from 'crypto'
 export class AwsS3BucketClient {
   private s3Client: S3Client
 
-  constructor(private bucket: string) {
-    this.s3Client = new S3Client({
-      region: 'eu-central-1',
-    })
+  constructor(private bucket: string, region: string) {
+    this.s3Client = new S3Client({ region })
   }
 
   /**

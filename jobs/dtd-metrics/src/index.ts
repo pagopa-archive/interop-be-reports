@@ -43,7 +43,7 @@ const readModel = await ReadModelClient.connect({
 
 try {
   const githubClient = new GithubClient(env.GITHUB_ACCESS_TOKEN)
-  const awsS3BucketClient = new AwsS3BucketClient(env.STORAGE_BUCKET)
+  const awsS3BucketClient = new AwsS3BucketClient(env.STORAGE_BUCKET, env.AWS_REGION)
 
   log.info('Initializing global store...')
   const globalStore = await GlobalStoreService.init(readModel, { cache: env.CACHE_GLOBAL_STORE })

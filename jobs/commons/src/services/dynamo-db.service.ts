@@ -2,7 +2,6 @@ import {
   AttributeValue,
   DeleteItemCommandOutput,
   DynamoDB,
-  DynamoDBClientConfig,
   UpdateItemCommandInput,
   UpdateItemCommandOutput,
 } from '@aws-sdk/client-dynamodb'
@@ -28,12 +27,9 @@ export class DynamoDbTableClient<
 
   constructor(
     private tableName: string,
-    config: Omit<DynamoDBClientConfig, 'region'> = {}
+    region: string
   ) {
-    this.client = new DynamoDB({
-      region: 'eu-central-1',
-      ...config,
-    })
+    this.client = new DynamoDB({region})
   }
 
   /**

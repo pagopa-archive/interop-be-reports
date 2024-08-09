@@ -12,7 +12,7 @@ import { env } from './configs/env.js'
 const log = console.log
 
 async function main(): Promise<void> {
-  const dtdCatalogBucketClient = new AwsS3BucketClient(env.DTD_CATALOG_STORAGE_BUCKET)
+  const dtdCatalogBucketClient = new AwsS3BucketClient(env.DTD_CATALOG_STORAGE_BUCKET, env.AWS_REGION)
   log('Connecting to database...')
   const mongoDBEServiceClient = await MongoDBEServiceClient.connect()
   log('Connected to database!\n')
