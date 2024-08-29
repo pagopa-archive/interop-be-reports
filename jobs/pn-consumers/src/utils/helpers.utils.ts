@@ -1,6 +1,5 @@
 import { PurposeState } from '@interop-be-reports/commons'
 import { Purpose, PurposeVersion, PNDataCSVRow, StatoFinalitaMigliore } from '../models/index.js'
-import { getLogger } from 'nodemailer/lib/shared/index.js'
 
 /**
  * Transforms a purpose to a CSV output row.
@@ -18,7 +17,7 @@ import { getLogger } from 'nodemailer/lib/shared/index.js'
  */
 export function toCsvDataRow(purpose: Purpose): PNDataCSVRow {
   function getPurposeVersionWithState(state: PurposeState): PurposeVersion | undefined {
-    getLogger(["purposeId:", purpose.id])
+    console.log(`Getting the purpose: ${purpose.id} with state: ${state}`)
     return purpose.versions.find((version) => version.state === state)
   }
 
