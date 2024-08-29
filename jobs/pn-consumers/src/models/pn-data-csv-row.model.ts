@@ -5,7 +5,7 @@ export const StatoFinalitaMigliore = z.enum(['Attivo', 'Sospeso', 'In attesa di 
 export const PNDataCSVRow = z.object({
   nome_comune: z.string(),
   stato_finalita_migliore: StatoFinalitaMigliore,
-  data_attivazione: z.string(),
+  data_attivazione: z.string().optional(),
   fonte_codice: z.string(),
   codice: z.string(),
   carico_finalita_migliore: z.number(),
