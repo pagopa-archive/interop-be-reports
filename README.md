@@ -40,3 +40,8 @@ There is a script that will scaffold a new job for you:
 ```
 pnpm create-new-job
 ```
+
+# Deprecated services
+- dtd-catalog-total-load-exporter
+- dtd-metrics
+- metrics-report-generator

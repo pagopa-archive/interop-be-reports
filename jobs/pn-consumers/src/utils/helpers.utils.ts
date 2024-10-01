@@ -17,6 +17,7 @@ import { Purpose, PurposeVersion, PNDataCSVRow, StatoFinalitaMigliore } from '..
  */
 export function toCsvDataRow(purpose: Purpose): PNDataCSVRow {
   function getPurposeVersionWithState(state: PurposeState): PurposeVersion | undefined {
+    console.log(`Getting the purpose: ${purpose.id} with state: ${state}`)
     return purpose.versions.find((version) => version.state === state)
   }
 
