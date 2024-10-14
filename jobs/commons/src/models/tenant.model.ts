@@ -67,7 +67,7 @@ export const PersistentTenantFeature = z.union([PersistentTenantFeatureCertifier
 export const Tenant = z.object({
   id: z.string().uuid(),
   kind: z.enum(['PA', 'GSP', 'PRIVATE']).optional(),
-  selfcareId: z.string().uuid().optional(),
+  selfcareId: z.string().optional(),
   externalId: ExternalId,
   features: z.array(PersistentTenantFeature),
   attributes: z.array(TenantAttribute),
